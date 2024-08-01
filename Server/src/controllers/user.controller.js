@@ -48,6 +48,7 @@ const createUser = asyncHandler(async (req, res) => {
     email,
     fullName,
     password,
+    
   });
 
   const { accessToken, refreshToken } = await generateAccessAndRefereshToken(
@@ -192,5 +193,58 @@ const updateProfile = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "User Details Updated successfully"));
 });
 
+const getAllUser = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
 
-export {createUser,loginUser,logoutUser,getCurrentUser,changeCurrentPassword,updateProfile}
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
+  if (user) {
+    res.status(200)
+      .json(new ApiResponse(200, { user },"User fetched successfully"));
+  } else {
+
+    throw new ApiError(401,"User not found");
+  }
+
+})
+
+const deleteById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  if (user) {
+    await User.deleteOne({ _id: user._id });
+    res.status(200).json(new ApiResponse(200,{}, "User deleted sucessfully" ));
+  } else {
+    throw new ApiError(404,"User not found");
+  }
+})
+
+const updateById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.userName = req.body.userName || user.userName;
+    user.email = req.body.email || user.email;
+
+    const updatedUser = await user.save();
+
+    res.status(200)
+      .json(new ApiResponse(200, { updatedUser }, "User details updated successfully"));
+  } else {
+    throw new ApiError(404,"User not found");
+  }
+})
+
+
+export {
+  createUser,
+  loginUser, 
+  logoutUser, 
+  getCurrentUser, 
+  changeCurrentPassword, 
+  updateProfile, 
+  getAllUser, 
+  getUserById, 
+  deleteById, 
+  updateById
+}
