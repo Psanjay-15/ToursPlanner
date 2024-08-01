@@ -26,7 +26,7 @@ const addTour = asyncHandler(async (req, res) => {
         coverImageUrl,
         photos
     })
-     console.log(tour)
+    //  console.log(tour)
     if (!tour) {
         throw new ApiError(500,"Tour not added")
     }
@@ -39,14 +39,24 @@ const addTour = asyncHandler(async (req, res) => {
     )
 })
 
-const updateTour = asyncHandler(async (req, res) => {
-    const tour = await Tour.findById(req.tour._id)
+const getAllTour = asyncHandler(async (req, res) => {
+    const tours = await Tour.find({})
+    if (tours) {
+        res.status(200).json(new ApiResponse(200, { tours }, "All tours fetched successfully"))
+    }
+    else {
+        throw new ApiError(500,"Something error occurred while fetching tours")
+    }
+})
 
+const updateTour = asyncHandler(async (req, res) => {
+    const tour = await Tour.findById(req.params.id)
+    console.log(tour)
     if (tour) {
         tour.title = req.body.title || tour.title
         tour.description = req.body.description || tour.description
         tour.price = req.body.price || tour.price
-        tour.duration = req.body.title || tour.title
+        tour.duration = req.body.duration || tour.duration
         tour.rating = req.body.rating || tour.rating
         tour.coverImageUrl = req.body.coverImageUrl || tour.coverImageUrl
         tour.photos = req.body.photos || tour.photos
@@ -59,4 +69,33 @@ const updateTour = asyncHandler(async (req, res) => {
         throw new ApiError(401,"Something went wrong while updating the tour")
     }
 })
-export {addTour,updateTour}
+
+const getTourById = asyncHandler(async (req, res) => {
+    const tour = await Tour.findById(req.params.id)
+    if (tour) {
+        res.status(200) 
+        .json(new ApiResponse(200, { tour },"Tour fetched successfully"));
+  } else {
+        throw new ApiError(401,"Tour not found");
+  }
+})
+
+const deleteTour = asyncHandler(async (req, res) => {
+    const tour = await Tour.findById(req.params.id)
+    if (tour) {
+        await Tour.deleteOne({ _id: tour._id });
+        res.status(200)
+            .json(new ApiResponse(200, {}, "Tour deleted sucessfully"));
+    } else {
+        throw new ApiError(404,"Tour not found");
+    }
+    
+})
+
+export {
+    addTour,
+    getAllTour,
+    updateTour,
+    getTourById,
+    deleteTour,
+}
