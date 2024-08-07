@@ -92,10 +92,68 @@ const deleteTour = asyncHandler(async (req, res) => {
     
 })
 
+const addReview = asyncHandler(async (req, res) => {
+    try {
+        const { tourId } = req.params.id;
+        const { rating, comment } = req.body;
+    
+        const tour = await Tour.findById({tourId})
+        if (!tour) {
+            throw new ApiError(400,"Tour not found")
+        }
+        const review = {
+            user: req.user._id,
+            name: req.user.userName,
+            rating,
+            comment
+            
+        }
+        tour.reviews.push(review)
+        const averageRating = tour.reviews.reduce((acc, review) => acc + review.rating, 0) / tour.reviews.length;
+        tour.ratingsAverage = averageRating
+    
+        await tour.save();
+    
+        res.status(200).json(new ApiResponse(200, { tour }, "Review added successfully"))
+        
+    } catch (error) {
+        console.log(error.message)
+        throw new ApiError(400,"Review not added")
+    }
+})
+
+const deleteReview = asyncHandler(async (req, res) => {
+    try {
+        const { tourId, reviewId } = req.params;
+        const tour = await Tour.findById(tourId);
+        if (!tour) {
+            return res.status(404).json({ error: 'Tour not found' });
+        }
+
+        const review = tour.reviews.id(reviewId);
+        if (!review) {
+            return res.status(404).json({ error: 'Review not found' });
+        }
+        review.remove();
+        const averageRating = tour.reviews.length > 0 
+            ? tour.reviews.reduce((acc, review) => acc + review.rating, 0) / tour.reviews.length
+            : 0;
+        tour.ratingsAverage = averageRating;
+
+        await tour.save();
+        res.status(200).json(new ApiResponse(200, { tour },"Review Deleted successfully"));
+    } catch (error) {
+        throw new ApiError(400,"Review not deleted")
+    }
+});
+
+
 export {
     addTour,
     getAllTour,
     updateTour,
     getTourById,
     deleteTour,
+    addReview,
+    deleteReview
 }
