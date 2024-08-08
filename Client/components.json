@@ -1,3 +1,5 @@
+
+
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "default",
@@ -17,3 +19,4 @@
     "magicui": "@/components/magicui"
   }
 }
+

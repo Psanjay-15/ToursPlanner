@@ -1,8 +1,48 @@
 import { Link } from "react-router-dom";
 import ShinyButton from "../components/magicui/shiny-button";
+import { useState } from "react";
+// import {  toast } from 'react-toastify';
+import axios from "axios"
+
 
 const Register = () => {
-  
+  const [fullName, setFullName] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+  // console.log(BASE_URL)
+
+  const handleRegister = ():void => {
+    if (!fullName || !userName || !email || !password) {
+      alert("Please enter all the details")
+      // toast.error("Please enter all the details")
+      return;
+    }
+    axios.post(BASE_URL + "/users/register",
+      {
+        fullName,
+        userName,
+        email,
+        password
+      },
+      {
+        withCredentials:true,
+      }
+    ).then((res) => {
+      sessionStorage.setItem("accessToken", res.data.data.accessToken)
+      sessionStorage.setItem("userName",res.data.data.createdUser.userName)
+      sessionStorage.setItem("email",res.data.data.createdUser.email)
+      // console.log(res.data.data.createdUser.userName)
+      window.location.href="/"
+    }).catch((error) => {
+      console.log(error.message)
+      alert("Unable to register")
+      // toast.error("Unable to register")
+    })
+
+    
+  }
   return (
     <>
       <div className="flex flex-row h-screen ">
@@ -26,30 +66,36 @@ const Register = () => {
                   placeholder="Name"
                   type="text"
                   required
+                  onChange={(e)=>setFullName(e.target.value)}
                 />
                 <input
                   className="username border-[1px] py-[10px] rounded-lg p-2 bg-slate-50 mt-4 my-2 max-sm:pr-20"
                   placeholder="Username"
                   type="text"
                   required
+                  onChange={(e)=>setUserName(e.target.value)}
                 />
                 <input
                   className="email border-[1px] py-[10px] rounded-lg p-2 bg-slate-50 mt-4 my-2 max-sm:pr-20"
                   placeholder="Email"
                   type="text"
                   required
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
                 <input
                   className="password border-[1px] py-[10px] rounded-lg p-2 bg-slate-50 mt-4 my-2 max-sm:pr-20"
                   placeholder="Password"
                   type="password"
                   required
+                  onChange={(e)=>setPassword(e.target.value)}
+
                 />
             </div>
             <div className="w-full my-[20px]  flex flex-col items-center ">
              <ShinyButton 
                 text="Create an Account" 
                 className="flex flex-row w-[50%] text-gray-900 justify-center bg-orange-100  Montserrat  border-2 rounded-full py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px]"
+                onClick={handleRegister}
               >
                 {/* <img className="h-4 w-4" src={google} alt="Google Icon" /> */}
                 Create an Account
@@ -67,8 +113,6 @@ const Register = () => {
               </div>
           </div>
         </div>
-
-
         <div className="w-2/4 flex items-center justify-center bg-[url('/media/lg.jpg')] bg-cover  ">
           
         </div>

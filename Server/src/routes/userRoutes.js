@@ -12,7 +12,7 @@ import { Router } from "express"
 import { verifyJWT,customRole } from "../middlewares/auth.middleware.js"
 const router = Router()
 
-router.route("/").post(createUser)
+router.route("/register").post(createUser)
 router.route("/auth").post(loginUser);
 router.route("/logout").get(verifyJWT,logoutUser)
 router.route("/profile")
