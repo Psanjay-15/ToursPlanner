@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Register from "../src/pages/Register.tsx"
 import Login from "../src/pages/Login.tsx"
-import Home from '../src/majorComponents/Home/HomeMain.tsx';
+import Home from '../src/majorComponents/Home/Home.tsx';
 const AppRouter = () => {
     return (
     <>

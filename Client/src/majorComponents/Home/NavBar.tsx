@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
       <>
-        <div className="flex flex-row justify-between items-center border h-auto">
+        <div className="flex flex-row justify-between items-center brder h-auto">
               <div>
                 <p className="font-bold text-3xl px-4 py-2 bg-gradient-to-tr from-red-700  to-orange-200 bg-clip-text text-transparent">TripEzz.</p>
               </div> 
