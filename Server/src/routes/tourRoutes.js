@@ -13,9 +13,10 @@ const router = Router()
 
 
 router.route("/addtour").post(verifyJWT, customRole("admin"), addTour)
-router.route("/alltours").get(verifyJWT, customRole("admin"), getAllTour)
+router.route("/alltours").get( getAllTour)
+router.route("/tour-details/:id").get(getTourById)
 router.route("/:id")
-    .get(verifyJWT, customRole("admin"), getTourById)
+    // .get(verifyJWT, customRole("admin"), getTourById)
     .put(verifyJWT, customRole("admin"), updateTour)
     .delete(verifyJWT,customRole("admin"),deleteTour)
 

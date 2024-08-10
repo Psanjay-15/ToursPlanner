@@ -1,3 +1,6 @@
+import SearchBar from "../SharedComponents/SearchBar";
+import Tours from "./Tours";
+
 const Middle = () => {
   return (
     <>
@@ -21,6 +24,8 @@ const Middle = () => {
 
         <div></div>
       </div>
+      <SearchBar />
+      <Tours />
     </>
   );
 };
