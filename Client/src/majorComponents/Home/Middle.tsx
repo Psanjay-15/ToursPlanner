@@ -1,7 +1,10 @@
-import SearchBar from "../SharedComponents/SearchBar";
+
+// import SearchBar from "../SharedComponents/SearchBar";
+import SearchTour from "../SharedComponents/SearchTour";
 import Tours from "./Tours";
 
 const Middle = () => {
+ 
   return (
     <>
       <div className="h-fit borer-2 border-red-500">
@@ -24,8 +27,8 @@ const Middle = () => {
 
         <div></div>
       </div>
-      <SearchBar />
-      <Tours />
+      <SearchTour />
+     <Tours/>
     </>
   );
 };

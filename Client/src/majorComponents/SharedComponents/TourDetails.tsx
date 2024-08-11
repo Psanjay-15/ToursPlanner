@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "./Loading";
 import ShinyButton from "../../components/magicui/shiny-button";
@@ -22,6 +22,7 @@ const TourDetails: React.FC = () => {
   const [tourData, setTourData] = useState<TourData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [numPeople, setNumPeople] = useState<number>(1);
 
   useEffect(() => {
     fetchTourData();
@@ -55,6 +56,11 @@ const TourDetails: React.FC = () => {
     );
   }
 
+  const totalAmount = numPeople * tourData.price;
+
+  const handlePeopleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNumPeople(parseInt(event.target.value) || 0);
+  };
   const handleBook = () => {};
 
   return (
@@ -69,30 +75,53 @@ const TourDetails: React.FC = () => {
         </div>
 
         <div className="w-[40%]">
-          <div>
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold mb-4">{tourData.title}</h1>
-              <p className="text-gray-700 mb-4">{tourData.description}</p>
-              <p className="text-gray-700 mb-4">{tourData.duration}</p>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-2xl font-semibold">
-                  ₹{tourData.price.toFixed(2)}/person
-                </span>
-                <span className="text-yellow-500">
-                  ⭐ {tourData.ratingsAverage}
-                </span>
-              </div>
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">{tourData.title}</h1>
+            <p className="text-gray-700 mb-4">{tourData.description}</p>
+            <p className="text-gray-700 mb-4">{tourData.duration}</p>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-2xl font-semibold">
+                ₹{tourData.price.toFixed(2)}/person
+              </span>
+              <span className="text-gray-900 text-xl">
+                ⭐ {tourData.ratingsAverage}
+              </span>
             </div>
+          </div>
 
-            <div className="text-center flex justify-center">
-              <ShinyButton
-                text="Create an Account"
-                className="flex flex-row w-[30%]  text-gray-900  bg-orange-100  Montserrat  border-2 rounded-full py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px]"
-                onClick={handleBook}
-              >
-                Book
-              </ShinyButton>
-            </div>
+          <div className="flex flex-row justify-evly">
+            <label htmlFor="numPeople" className="block text-lg pt-2 pr-4">
+              Number of People:
+            </label>
+            <input
+              type="number"
+              id="numPeople"
+              value={numPeople}
+              onChange={handlePeopleChange}
+              className="border border-gray-300  rounded-md mb-4 p-2 w-[30%]"
+              min={1}
+            />
+
+          </div>
+          <div></div>
+            <p className="text-xl pb-8 pr-4">
+              Total Amount:{" "}
+              <span className="font-semibold pl-4">
+                ₹{numPeople === 0 ? "" : totalAmount}
+              </span>
+            </p>
+          <div>
+            <Link to="/payment">
+              <div className="text-center flex justify-center">
+                <ShinyButton
+                  text="Create an Account"
+                  className="flex flex-row w-[30%]  text-gray-900  bg-orange-100  Montserrat  border-2 rounded-full py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px]"
+                  onClick={handleBook}
+                >
+                  Book
+                </ShinyButton>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -113,7 +142,6 @@ const TourDetails: React.FC = () => {
       </div>
     </div>
   );
-    
 };
 
 export default TourDetails;
