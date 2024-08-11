@@ -26,8 +26,8 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <ShineBorder
-      className="relative flex h-[450px] w-full flex-col items-center border justify-center overflow-hidden bg-background md:shadow-xl  p-4 
-      py-8 rounded-xl shadow-2xl max-w-xs transition-transform transform hover:scale-105 duration-300"
+      className="relative flex h-full w-full flex-col items-center border justify-center overflow-hidden bg-background md:shadow-xl  px-4 
+      py-4 rounded-xl shadow-2xl max-w-xs transition-transform transform hover:scale-105 duration-300"
       color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
     >
       <div className=" ">

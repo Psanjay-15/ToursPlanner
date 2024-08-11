@@ -48,7 +48,7 @@ const Tours: React.FC = () => {
 
 
   return (
-    <div className="p-8 grid grid-cols-4 gap-4">
+    <div className="p-8 grid grid-cols-4 gap-4 mt-[60px]">
       {tours.map((tour) => (
         <Card
           key={tour._id}
