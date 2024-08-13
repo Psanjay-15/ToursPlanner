@@ -64,7 +64,7 @@ const TourDetails: React.FC = () => {
     setNumPeople(parseInt(event.target.value) || 0);
   };
 
-  const handleImageClick = (photo: string) => {
+  const handleChangeCoverImage = (photo: string) => {
     if (tourData) {
       const updatedPhotos = [...tourData.photos];
       const currentIndex = updatedPhotos.indexOf(photo);
@@ -79,42 +79,59 @@ const TourDetails: React.FC = () => {
   return (
     <>
       <NavBar />
-      <div className="w-[100%] h-[750px]">
-        <div className="flex flex-row gap-8 h] py-10 px-[80px] justify-end">
-          <div className="rounded-xl w-[80%] flex items-center justify-center">
+      <div className="w-[100%] ">
+        <div className="flex flex-row gap-8 h- py-10 px-[80px] justify-end h-[850px] ">
+          <div className="rounded-xl w-[80%] flex items-center justify-center shadow-2xl">
             <img
               src={currentCoverImage}
               alt={tourData.title}
-              className="w-full object-cover h-[100%] rounded-lg shadow-lg"
+              className="w-full object-cover h-[100%] rounded-lg shadow-2xl"
             />
           </div>
 
-          <div className="w-[40%] border-2 p-8 rounded-lg">
-            <div className="mb-8">
+          <div className="w-[40%] border-2 p-8 rounded-lg shadow-2xl">
+            <div className="">
               <h1 className="text-3xl font-bold mb-4">{tourData.title}</h1>
               <p className="text-gray-700 mb-4">{tourData.description}</p>
-              <span>Duration</span>
-              <p className="text-gray-700 mb-4">
-                {Number(tourData.duration[0]) - 1} <span>Nights</span>{" "}
-                {tourData.duration}s
-              </p>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-2xl font-semibold">
-                  ₹{tourData.price.toFixed(2)}/person
-                </span>
-                <span className="text-gray-900 text-xl">
-                  ⭐ {tourData.ratingsAverage}
-                </span>
-              </div>
+              <span className="flex items-center mb-3 space-x-2">
+                <img src="/media/calendar.png" className="w-[28px] h-[28px]" />
+                <p className="text-gray-700 mb-4 text-lg pt-4">
+                  {Number(tourData.duration[0]) - 1} Nights, {tourData.duration}
+                </p>
+              </span>
             </div>
 
-            <div className="my-8">
-              <ul className="flex flex-row gap-4">
-                <li>Hotels</li>
-                <li>Travel</li>
-                <li>Meals</li>
-                <li>Proper Management</li>
+            <div className="mb-8">
+              <ul className="flex flex-row gap-9">
+                <li>
+                  <img src="/media/hotel.png" className="w-8 h-8" />
+                  Stay
+                </li>
+                <li>
+                  <img src="/media/flight.png" className="w-8 h-8" />
+                  Flight
+                </li>
+                <li>
+                  <img src="/media/bus.png" className="w-8 h-8" />
+                  Travel
+                </li>
+                <li>
+                  <img src="/media/meal.png" className="w-8 h-8" />
+                  Meals
+                </li>
+                <li>
+                  <img src="/media/forex.png" className="w-8 h-8" />
+                  Forex
+                </li>
               </ul>
+            </div>
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-2xl font-semibold">
+                ₹{tourData.price.toFixed(2)}/person
+              </span>
+              <span className="text-gray-900 text-xl">
+                ⭐ {tourData.ratingsAverage}
+              </span>
             </div>
 
             <div className="flex flex-row justify-evly">
@@ -131,7 +148,7 @@ const TourDetails: React.FC = () => {
               />
             </div>
             <div></div>
-            <p className="text-xl pb-8 pr-4">
+            <p className="text-xl pb-8 pr-4 ">
               Total Amount:{" "}
               <span className="font-semibold pl-4">
                 ₹{numPeople === 0 ? "" : totalAmount}
@@ -142,10 +159,10 @@ const TourDetails: React.FC = () => {
                 <div className="text-center flex justify-center">
                   <ShinyButton
                     text="Create an Account"
-                    className="flex flex-row w-[30%]  text-gray-900  bg-orange-100  Montserrat  border-2 rounded-full py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px]"
+                    className="flex flex-row w-[40%]  text-gray-900  px-4 bg-orange-100  Montserrat  border-2 rounded-xl py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px]"
                     // onClick={handleBook}
                   >
-                    Book
+                    Book Now
                   </ShinyButton>
                 </div>
               </Link>
@@ -153,9 +170,9 @@ const TourDetails: React.FC = () => {
           </div>
         </div>
 
-        <div className="pl-[80px] pb-10">
+        <div className="pl-[80px] pb-10 ">
           <div className="w-[90%]">
-            <div className="grid grid-cols-6 gap-3 w-[105%]">
+            <div className="grid grid-cols-6 gap-3 w-[105%] h-auto">
               {tourData.photos &&
                 tourData.photos.length > 0 &&
                 tourData.photos.map((photo, index) => (
@@ -164,7 +181,7 @@ const TourDetails: React.FC = () => {
                     src={photo}
                     alt={`Gallery ${index + 1}`}
                     className="w-full h-[150px] object-cover rounded-lg shadow-sm cursor-pointer"
-                    onClick={() => handleImageClick(photo)}
+                    onClick={() => handleChangeCoverImage(photo)}
                   />
                 ))}
             </div>
