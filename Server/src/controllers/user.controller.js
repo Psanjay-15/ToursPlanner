@@ -53,7 +53,7 @@ const createUser = asyncHandler(async (req, res) => {
   const { accessToken, refreshToken } = await generateAccessAndRefereshToken(
     user._id
   );
-  console.log(user);
+  // console.log(user);
 
   const createdUser = await User.findById(user._id).select("-password ");
 
@@ -78,7 +78,7 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(400,"Please provide valied Username and Email")
   }
   const user = await User.findOne({
-    $or :[{userName},{email}]
+    $and :[{userName},{email}]
   })
   if (!user) {
     throw new ApiError(400,"User not registered")
@@ -172,7 +172,7 @@ const updateProfile = asyncHandler(async (req, res) => {
   if (!fullName || !email || !userName) {
     throw new ApiError(400, "Please enter fullName or email");
   }
-  console.log(req.user._id);
+  // console.log(req.user._id);
   const user = await User.findByIdAndUpdate(
     req.user?._id,
     {

@@ -34,6 +34,7 @@ const TourDetails: React.FC = () => {
     try {
       const res = await axios.get(BASE_URL + `/tours/tour-details/${id}`);
       setTourData(res.data.data.tour);
+      console.log(res.data.data.tour);
       setCurrentCoverImage(res.data.data.tour.coverImageUrl);
       setLoading(false);
     } catch (error) {

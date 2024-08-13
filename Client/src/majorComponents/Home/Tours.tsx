@@ -28,6 +28,8 @@ const Tours: React.FC = () => {
     try {
       const response = await axios.get(BASE_URL + "/tours/alltours");
       setTours(response.data.data.tours);
+      // console.log(response.data.data.tours);
+      
       setLoading(false);
     } catch (err) {
       setError("Failed to load tours.");

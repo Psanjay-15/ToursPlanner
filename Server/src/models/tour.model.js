@@ -56,7 +56,7 @@ const tourSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 function arrayLimit(val) {
-  return val.length <= 4;
+  return val.length <= 7;
 }
 
 export const Tour = mongoose.model("Tour",tourSchema) 
