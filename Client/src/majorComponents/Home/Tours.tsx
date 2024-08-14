@@ -3,7 +3,6 @@ import axios from "axios";
 import Card from "../SharedComponents/Card";
 import Loading from "../SharedComponents/Loading";
 import SearchBar from "../SharedComponents/SearchBar";
-import Brochure from "./Brochure";
 
 interface Tour {
   _id: string;
@@ -140,9 +139,7 @@ const Tours: React.FC = () => {
             />
           ))}
         </div>
-      </div>
-      <div>
-        <Brochure/>
+        
       </div>
     </>
   );

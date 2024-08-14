@@ -160,7 +160,7 @@ const TourDetails: React.FC = () => {
                 <div className="text-center flex justify-center">
                   <ShinyButton
                     text="Create an Account"
-                    className="flex flex-row w-[40%]  text-gray-900  px-4 bg-orange-100  Montserrat  border-2 rounded-xl py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px]"
+                    className="flex flex-row w-[40%]  text-gray-900  px-4 bg-orange-100  Montserrat  border-2 rounded-xl py-2 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px] shadow-md"
                     // onClick={handleBook}
                   >
                     Book Now

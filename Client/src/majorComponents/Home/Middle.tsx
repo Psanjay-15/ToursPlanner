@@ -1,3 +1,4 @@
+import Brochure from "./Brochure";
 import Tours from "./Tours";
 
 const Middle = () => {
@@ -22,6 +23,9 @@ const Middle = () => {
         </div>
       </div>
       <Tours />
+      <div className="">
+        <Brochure />
+      </div>
     </>
   );
 };
