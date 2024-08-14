@@ -22,7 +22,7 @@ const Card: React.FC<CardProps> = ({
   ratingsAverage,
 }) => {
   return (
-    <div className="border-2 rounded-xl p-4 transform transition-transform duration-300 hover:scale-105">
+    <div className="border-2 rounded-xl p-4 transform transition-transform duration-300 hover:scale-105 shadow-md">
       <img
         src={coverImage}
         alt={title}
