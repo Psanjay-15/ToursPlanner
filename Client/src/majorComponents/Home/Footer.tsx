@@ -4,7 +4,7 @@ const Footer = () => {
     <>
       
 
-<footer className=" rounded-lg shadow m-4 border-2">
+<footer className=" rounded-lg  m-8 border-2 shadow-md">
     <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
             <a href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
