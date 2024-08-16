@@ -11,18 +11,18 @@ const Footer = () => {
                 {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
                 <span className="font-bold text-3xl px-4 py-2 bg-gradient-to-tr from-red-700  to-orange-200 bg-clip-text text-transparent">TripEzz.</span>
             </a>
-            <ul className="flex flex-wrap items-center mb-6 text-lg font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <ul className="flex flex-wrap items-center mb-6 text-lg font-medium text-gray-500 sm:mb-0 dark:text-gray-400 max-sm:flex max-sm:flex-row max-sm:justify-between">
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">About</a>
+                    <a href="/" className="hover:underline me-4 md:me-6">About</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">Privacy Policy</a>
+                    <a href="/" className="hover:underline me-4 md:me-6">Privacy Policy</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline me-4 md:me-6">Licensing</a>
+                    <a href="/" className="hover:underline me-4 md:me-6">Licensing</a>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline">Contact</a>
+                    <a href="/" className="hover:underline">Contact</a>
                 </li>
             </ul>
         </div>

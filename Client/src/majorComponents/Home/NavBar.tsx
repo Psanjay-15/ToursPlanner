@@ -21,36 +21,42 @@ const NavBar = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const getEmailInitial = (email: string) => {
+    return email.charAt(0).toUpperCase();
+  };
+
   return (
-    <div className="flex flex-row justify-between items-center h-auto py-2">
+    <div className="flex flex-row justify-between items-center h-auto py-2 px-3">
       <Link to="/">
         <div>
-          <p className="font-bold text-3xl px-4 py-2 bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent">
-            TripEzz.
+          <p className="font-bold text-2xl md:text-3xl bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent">
+            <span className="md:hidden">TE</span>
+            <span className="hidden md:inline">TripEzz.</span>
           </p>
         </div>
       </Link>
       <div>
         {email ? (
           <div
-            className="text-[18px] border-2 border-gray-400 px-[15px] py-[4px] rounded-lg font-bold bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent mr-6"
+            className="text-[18px] border-2 border-gray-400 px-[15px] py-[4px] rounded-lg font-bold bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent mr-4 cursor-pointer  "
             onClick={toggleMenu}
           >
-            {email}
+            <span className="md:hidden">{getEmailInitial(email)}</span>
+            <span className="hidden md:inline">{email}</span>
+
           </div>
         ) : (
-          <div>
+          <div className="flex items-center">
             <Link to={"/register"}>
-              <button className="home mr-2 text-[18px] font-bold w-fit text-right bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent hover:border-b-2 border-orange-200">
+              <button className="mr-1 text-[16px] md:text-[18px] font-bold bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent hover:border-b-2 border-orange-200">
                 Sign Up
               </button>
-              <span className="bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent text-[18px]">
-                /
-              </span>
             </Link>
-
+            <span className="bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent text-[16px] md:text-[18px]">
+              /
+            </span>
             <Link to={"/login"}>
-              <button className="home ml-2 mr-6 text-[18px] font-bold w-fit text-left bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent hover:border-b-2 border-orange-200">
+              <button className="ml-1 text-[16px] md:text-[18px] font-bold bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent hover:border-b-2 border-orange-200">
                 Sign In
               </button>
             </Link>
@@ -58,7 +64,7 @@ const NavBar = () => {
         )}
 
         {menuOpen && (
-          <div className="absolute  mt-2 w-[150px] bg-white border border-gray-300 rounded shadow-md">
+          <div className="absolute mt-2 w-[120px] bg-white border border-gray-300 rounded shadow-md">
             <ul className="py-2">
               <li
                 className="px-2 py-2 font-semibold hover:bg-gray-100 cursor-pointer"

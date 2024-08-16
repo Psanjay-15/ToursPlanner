@@ -75,7 +75,7 @@ const Tours: React.FC = () => {
   return (
  
     <>
-      <div className="p-8 mt-[0px]">
+      <div className="p-8 mt-[0px] md:pt-2">
         <SearchBar
           searchInput={searchInput}
           handleSearchChange={handleSearchChange}

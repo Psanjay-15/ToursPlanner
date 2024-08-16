@@ -16,14 +16,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
   resetSearchInput,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center w-full mb-8">
+    <div className="flex flex-col md:flex-row justify-center items-center w-full mb-8 md:mt-2">
       <div className="flex  items-center w-full md:w-[60%] lg:w-[50%] border-2 border-gray-300 rounded-lg bg-white shadow-md p-2 relative">
         <input
           placeholder="Search for Tour..."
           type="text"
           value={searchInput}
           onChange={handleSearchChange}
-          className="py-2 text-xl outline-none w-full rounded-xl border-transparent focus:border-transparent focus:ring-0 pr-10"
+          className="py-2 text-xl outline-none w-full rounded-xl border-transparent focus:border-transparent focus:ring-0 pr-10 max-sm:text-lg"
         />
         <img
           src="/media/cut.png"

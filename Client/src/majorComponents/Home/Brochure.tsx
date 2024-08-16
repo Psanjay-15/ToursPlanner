@@ -4,17 +4,21 @@ import ShinyButton from "../../components/magicui/shiny-button";
 const Brochure = () => {
   return (
     <>
-      <div className="flex flex-row mt-8 m-8 px-[1px] py-[2px] border-2 rounded-xl shadow-md">
-        <div className=" w-[50%] h-[380px] p-2  bg-[url('/media/bro.png')]  bg-cover"></div>
-        <div className="w-[50%] flex flex-col justify-center items-center p-6">
-          <p className="text-center font-extrabold text-4xl ">
-            To get more information about the tour please click on the below
-            button and download the brochure
+      <div className="flex flex-row max-sm:flex-col-reverse  mx-8 max-sm:mx-8 py-4 max-sm:py-1 border-2 rounded-xl shadow-md">
+        <div className="w-full md:w-[50%] h-[200px] md:h-[380px] p-2 bg-[url('/media/bro.png')] bg-cover rounded-xl md:rounded-none "></div>
+        <div className="w-full md:w-[50%] flex flex-col justify-center items-center p-4 md:p-6 mt-4 md:mt-0">
+          <p className="text-center font-extrabold text-xl md:text-4xl mb-4">
+            To get more information about the tour, please click the button
+            below and download the brochure.
           </p>
-          <Link to="https://drive.google.com/file/d/1CxJafG6HF8D8AP--0yJrnLmuZKHojzCn/view" target="_blank">
+          <Link
+            to="https://drive.google.com/file/d/1CxJafG6HF8D8AP--0yJrnLmuZKHojzCn/view"
+            target="_blank"
+            className="w-full flex justify-center"
+          >
             <ShinyButton
-              text="Create an Account"
-              className="flex flex-row my-8 px-8 py-2 w-[100%] text-gray-900 bg-orange-100 border-2 rounded-xl text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px] shadow-md"
+              text="Download"
+              className="w-[50%] max-sm:w-[50%] flex justify-center my-4 px-6 py-2 text-gray-900 bg-orange-100 border-2 rounded-xl text-sm md:text-lg font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
             >
               Download
             </ShinyButton>
