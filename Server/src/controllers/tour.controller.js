@@ -103,7 +103,8 @@ const addReview = asyncHandler(async (req, res) => {
   try {
     const { tourId } = req.params;
     const { rating, comment } = req.body;
-    console.log(tourId);
+    // const user = req.user._id
+    // console.log(user.userName);
 
     const tour = await Tour.findById(tourId);
     if (!tour) {
@@ -111,10 +112,11 @@ const addReview = asyncHandler(async (req, res) => {
     }
     const review = {
       user: req.user._id,
-      name: req.user.userName,
+      name: req.user.fullName,
       rating,
       comment,
     };
+    // console.log(review)
     tour.reviews.push(review);
     const averageRating =
       tour.reviews.reduce((acc, review) => acc + review.rating, 0) /
@@ -192,7 +194,7 @@ export {
   updateTour,
   getTourById,
   deleteTour,
-    addReview,
+  addReview,
   getTourReviews,
   deleteReview,
 };

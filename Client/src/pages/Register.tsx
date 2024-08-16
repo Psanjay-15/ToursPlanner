@@ -30,9 +30,9 @@ const Register = () => {
         withCredentials:true,
       }
     ).then((res) => {
-      sessionStorage.setItem("accessToken", res.data.data.accessToken)
-      sessionStorage.setItem("userName",res.data.data.createdUser.userName)
-      sessionStorage.setItem("email",res.data.data.createdUser.email)
+      localStorage.setItem("accessToken", res.data.data.accessToken)
+      localStorage.setItem("userName",res.data.data.createdUser.userName)
+      localStorage.setItem("email",res.data.data.createdUser.email)
       // console.log(res.data.data.createdUser.userName)
       window.location.href="/"
     }).catch((error) => {

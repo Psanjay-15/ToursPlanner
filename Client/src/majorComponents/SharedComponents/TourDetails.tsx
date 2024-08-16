@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "./Loading";
 import ShinyButton from "../../components/magicui/shiny-button";
 import NavBar from "../Home/NavBar";
+import Reviews from "./Reviews";
 
 interface TourData {
   id: string;
@@ -34,7 +35,7 @@ const TourDetails: React.FC = () => {
     try {
       const res = await axios.get(BASE_URL + `/tours/tour-details/${id}`);
       setTourData(res.data.data.tour);
-      console.log(res.data.data.tour);
+      console.log(res.data.data.tour.reviews);
       setCurrentCoverImage(res.data.data.tour.coverImageUrl);
       setLoading(false);
     } catch (error) {
@@ -81,7 +82,7 @@ const TourDetails: React.FC = () => {
     <>
       <NavBar />
       <div className="w-[100%] ">
-        <div className="flex flex-row gap-8 h- py-10 px-[80px] justify-end h-[850px] ">
+        <div className="flex flex-row gap-8  py-10 px-[80px] justify-end h-[850px] ">
           <div className="rounded-xl w-[80%] flex items-center justify-center shadow-2xl">
             <img
               src={currentCoverImage}
@@ -173,14 +174,14 @@ const TourDetails: React.FC = () => {
 
         <div className="pl-[80px] pb-10 ">
           <div className="w-[90%]">
-            <div className="grid grid-cols-6 gap-3 w-[105%] h-auto">
+            <div className="grid grid-cols-6 gap-3 w-[104%] h-auto">
               {tourData.photos &&
                 tourData.photos.length > 0 &&
                 tourData.photos.map((photo, index) => (
                   <img
                     key={index}
                     src={photo}
-                    alt={`Gallery ${index + 1}`}
+                    alt="Gallery"
                     className="w-full h-[150px] object-cover rounded-lg shadow-sm cursor-pointer"
                     onClick={() => handleChangeCoverImage(photo)}
                   />
@@ -188,6 +189,9 @@ const TourDetails: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <Reviews reviews={tourData.reviews} />
+
       </div>
     </>
   );

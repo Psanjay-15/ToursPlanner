@@ -25,8 +25,8 @@ const Register = () => {
         withCredentials:true,
     }
     ).then((res) => {
-      sessionStorage.setItem("userName",res.data.data.user.userName)
-      sessionStorage.setItem("email", res.data.data.user.email)
+      localStorage.setItem("userName",res.data.data.user.userName)
+      localStorage.setItem("email", res.data.data.user.email)
       window.location.href="/"
       console.log(res);
       // toast.success("Login successfully")
