@@ -1,45 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
 import axios from "axios";
-import Loading from "./Loading";
+import { Link, useParams } from "react-router-dom";
 import ShinyButton from "../../components/magicui/shiny-button";
+import Loading from "./Loading";
 import NavBar from "../Home/NavBar";
 import Reviews from "./Reviews";
-
-interface TourData {
-  id: string;
-  coverImageUrl: string;
-  photos: string[];
-  title: string;
-  description: string;
-  duration: string;
-  price: number;
-  ratingsAverage: number;
-  reviews: string[];
-}
 
 const TourDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
-  const [tourData, setTourData] = useState<TourData | null>(null);
-  const [currentCoverImage, setCurrentCoverImage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-  const [numPeople, setNumPeople] = useState<number>(1);
+  const [tourData, setTourData] = React.useState<TourData | null>(null);
+  const [currentCoverImage, setCurrentCoverImage] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<boolean>(false);
+  const [numPeople, setNumPeople] = React.useState<number>(1);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchTourData();
   }, []);
 
   const fetchTourData = async () => {
     try {
-      const res = await axios.get(BASE_URL + `/tours/tour-details/${id}`);
+      const res = await axios.get(`${BASE_URL}/tours/tour-details/${id}`);
       setTourData(res.data.data.tour);
       setCurrentCoverImage(res.data.data.tour.coverImageUrl);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       setError(true);
+    }
+  };
+
+  const saveTour = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + `/tours/tour-details/${id}`,
+        {},
+        {
+          headers:{Authorization:"Bearer " + localStorage.getItem("accessToken")}
+        }
+      );
+
+      if (res.status === 200) {
+        alert("Tour saved successfully!");
+      }
+    } catch (error) {
+      console.error("Failed to save tour:", error);
+      alert("Failed to save tour.");
     }
   };
 
@@ -91,10 +98,17 @@ const TourDetails: React.FC = () => {
           </div>
 
           <div className="w-full md:w-1/3 border-2 p-4 md:p-8 rounded-lg shadow-2xl">
-            <h1 className="text-xl md:text-3xl font-bold mb-2 md:mb-4">{tourData.title}</h1>
-            <p className="text-gray-700 text-sm md:text-base mb-2 md:mb-4">{tourData.description}</p>
+            <h1 className="text-xl md:text-3xl font-bold mb-2 md:mb-4">
+              {tourData.title}
+            </h1>
+            <p className="text-gray-700 text-sm md:text-base mb-2 md:mb-4">
+              {tourData.description}
+            </p>
             <div className="flex items-center mb-2 md:mb-3">
-              <img src="/media/calendar.png" className="w-6 md:w-8 h-6 md:h-8" />
+              <img
+                src="/media/calendar.png"
+                className="w-6 md:w-8 h-6 md:h-8"
+              />
               <p className="text-gray-700 text-sm md:text-lg pl-2 font-semibold">
                 {Number(tourData.duration[0]) - 1} Nights, {tourData.duration}
               </p>
@@ -102,11 +116,17 @@ const TourDetails: React.FC = () => {
             <div className="mb-4 md:mb-8 ">
               <ul className="flex flex-row flex-wrap gap-4 md:gap-8 mt-8">
                 <li className="text-sm md:text-base">
-                  <img src="/media/hotel.png" className="w-6 md:w-8 h-6 md:h-8" />
+                  <img
+                    src="/media/hotel.png"
+                    className="w-6 md:w-8 h-6 md:h-8"
+                  />
                   Stay
                 </li>
                 <li className="text-sm md:text-base">
-                  <img src="/media/flight.png" className="w-6 md:w-8 h-6 md:h-8" />
+                  <img
+                    src="/media/flight.png"
+                    className="w-6 md:w-8 h-6 md:h-8"
+                  />
                   Flight
                 </li>
                 <li className="text-sm md:text-base">
@@ -114,11 +134,17 @@ const TourDetails: React.FC = () => {
                   Travel
                 </li>
                 <li className="text-sm md:text-base">
-                  <img src="/media/meal.png" className="w-6 md:w-8 h-6 md:h-8" />
+                  <img
+                    src="/media/meal.png"
+                    className="w-6 md:w-8 h-6 md:h-8"
+                  />
                   Meals
                 </li>
                 <li className="text-sm md:text-base">
-                  <img src="/media/forex.png" className="w-6 md:w-8 h-6 md:h-8" />
+                  <img
+                    src="/media/forex.png"
+                    className="w-6 md:w-8 h-6 md:h-8"
+                  />
                   Forex
                 </li>
               </ul>
@@ -133,7 +159,10 @@ const TourDetails: React.FC = () => {
             </div>
 
             <div className="flex flex-row md:flex-row items-start md:items-center mb-4">
-              <label htmlFor="numPeople" className="pr-2 max-sm:pt-2 text-sm md:text-lg mb-2 md:mb-0">
+              <label
+                htmlFor="numPeople"
+                className="pr-2 max-sm:pt-2 text-sm md:text-lg mb-2 md:mb-0"
+              >
                 Number of People:
               </label>
               <input
@@ -160,6 +189,15 @@ const TourDetails: React.FC = () => {
                   Book Now
                 </ShinyButton>
               </Link>
+              <Link to="/saved">
+                <ShinyButton
+                  text="Save Tour"
+                  onClick={saveTour}
+                  className="w-full text-gray-900 px-4 bg-orange-100 border-2 rounded-xl p2 mt-4 mb-2 text-sm md:text-lg font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
+                >
+                  Save Tour
+                </ShinyButton>
+              </Link>
             </div>
           </div>
         </div>
@@ -169,7 +207,7 @@ const TourDetails: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-3">
               {tourData.photos &&
                 tourData.photos.length > 0 &&
-                tourData.photos.map((photo, index) => (
+                tourData.photos.map((photo: string, index: number) => (
                   <img
                     key={index}
                     src={photo}

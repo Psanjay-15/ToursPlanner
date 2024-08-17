@@ -1,7 +1,8 @@
 import mongoose, { model } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     userName: {
       type: String,
       lowercase: true,
@@ -29,13 +30,21 @@ const userSchema = new mongoose.Schema({
     },
     role: {
       type: String,
-      enum: ['user', 'admin'],
-      default: 'user'
+      enum: ["user", "admin"],
+      default: "user",
     },
     googleid: {
       type: String,
     },
-}, { timestamps: true })
+    savedTours: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tour",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 userSchema.pre("save", async function (next) {
   // Check if the password field has been modified
@@ -77,4 +86,4 @@ userSchema.methods.generateRefreshToken = function () {
   );
 };
 
-export const User = mongoose.model("User",userSchema)
+export const User = mongoose.model("User", userSchema);

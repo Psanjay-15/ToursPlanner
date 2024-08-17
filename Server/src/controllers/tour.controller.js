@@ -1,4 +1,5 @@
 import { Tour } from "../models/tour.model.js";
+import { User } from "../models/user.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -188,6 +189,38 @@ const deleteReview = asyncHandler(async (req, res) => {
   }
 });
 
+const saveTour = asyncHandler(async (req, res) => {
+try {
+    const { tourId } = req.params;
+    const userId = req.user._id;
+  
+    const tour = await Tour.findById(tourId);
+  
+    if (!tourId) {
+      throw new ApiError(400, "Save tour not available");
+    }
+  
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(400,"User not found")
+    }
+  
+    if (user.savedTours.includes(tourId)) {
+      throw new ApiError(400,"Tour already saved")
+    }
+  
+    user.savedTours.push(tourId)
+    await user.save()
+  
+    res.status(200).json(new ApiResponse(200,{savedTours:user.savedTours},"Tour saved successfully"))
+} catch (error) {
+  // throw new ApiError(400,{})
+  console.log(error.message)
+  
+}
+
+});
+
 export {
   addTour,
   getAllTour,
@@ -197,4 +230,5 @@ export {
   addReview,
   getTourReviews,
   deleteReview,
+  saveTour
 };

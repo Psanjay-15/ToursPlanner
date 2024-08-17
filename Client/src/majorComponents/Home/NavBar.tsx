@@ -43,7 +43,6 @@ const NavBar = () => {
           >
             <span className="md:hidden">{getEmailInitial(email)}</span>
             <span className="hidden md:inline">{email}</span>
-
           </div>
         ) : (
           <div className="flex items-center">
@@ -72,9 +71,11 @@ const NavBar = () => {
               >
                 Logout
               </li>
-              <li className="px-2 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
-                Profile
-              </li>
+              <Link to={"/profile"}>
+                <li className="px-2 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
+                  Profile
+                </li>
+              </Link>
             </ul>
           </div>
         )}

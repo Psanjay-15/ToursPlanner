@@ -31,9 +31,10 @@ const Login = () => {
       )
       .then((res) => {
         localStorage.setItem("userName", res.data.data.user.userName);
+        localStorage.setItem("accessToken", res.data.data.accessToken);
         localStorage.setItem("email", res.data.data.user.email);
         window.location.href = "/";
-        console.log(res);
+        console.log(res.data);
         // toast.success("Login successfully");
       })
       .catch((error) => {
