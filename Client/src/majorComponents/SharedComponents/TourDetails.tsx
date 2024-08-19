@@ -31,24 +31,24 @@ const TourDetails: React.FC = () => {
     }
   };
 
-  const saveTour = async () => {
-    try {
-      const res = await axios.post(
-        BASE_URL + `/tours/tour-details/${id}`,
-        {},
-        {
-          headers:{Authorization:"Bearer " + localStorage.getItem("accessToken")}
-        }
-      );
+  // const saveTour = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       BASE_URL + `/tours/tour-details/${id}`,
+  //       {},
+  //       {
+  //         headers:{Authorization:"Bearer " + localStorage.getItem("accessToken")}
+  //       }
+  //     );
 
-      if (res.status === 200) {
-        alert("Tour saved successfully!");
-      }
-    } catch (error) {
-      console.error("Failed to save tour:", error);
-      alert("Failed to save tour.");
-    }
-  };
+  //     if (res.status === 200) {
+  //       alert("Tour saved successfully!");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to save tour:", error);
+  //     alert("Failed to save tour.");
+  //   }
+  // };
 
   if (loading) {
     return <Loading />;
@@ -189,7 +189,7 @@ const TourDetails: React.FC = () => {
                   Book Now
                 </ShinyButton>
               </Link>
-              <Link to="/saved">
+              {/* <Link to="/saved">
                 <ShinyButton
                   text="Save Tour"
                   onClick={saveTour}
@@ -197,7 +197,7 @@ const TourDetails: React.FC = () => {
                 >
                   Save Tour
                 </ShinyButton>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
