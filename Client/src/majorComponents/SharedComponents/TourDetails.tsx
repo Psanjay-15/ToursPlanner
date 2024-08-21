@@ -6,6 +6,17 @@ import Loading from "./Loading";
 import NavBar from "../Home/NavBar";
 import Reviews from "./Reviews";
 
+interface TourData {
+  id: string;
+  coverImageUrl: string;
+  photos: string[];
+  title: string;
+  description: string;
+  duration: string;
+  price: number;
+  ratingsAverage: number;
+  reviews: any;
+}
 const TourDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -17,6 +28,7 @@ const TourDetails: React.FC = () => {
 
   React.useEffect(() => {
     fetchTourData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTourData = async () => {
@@ -31,24 +43,6 @@ const TourDetails: React.FC = () => {
     }
   };
 
-  // const saveTour = async () => {
-  //   try {
-  //     const res = await axios.post(
-  //       BASE_URL + `/tours/tour-details/${id}`,
-  //       {},
-  //       {
-  //         headers:{Authorization:"Bearer " + localStorage.getItem("accessToken")}
-  //       }
-  //     );
-
-  //     if (res.status === 200) {
-  //       alert("Tour saved successfully!");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to save tour:", error);
-  //     alert("Failed to save tour.");
-  //   }
-  // };
 
   if (loading) {
     return <Loading />;
