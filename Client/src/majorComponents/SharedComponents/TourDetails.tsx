@@ -15,8 +15,12 @@ interface TourData {
   duration: string;
   price: number;
   ratingsAverage: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reviews: any;
 }
+
+
+
 const TourDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -28,7 +32,7 @@ const TourDetails: React.FC = () => {
 
   React.useEffect(() => {
     fetchTourData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTourData = async () => {
@@ -42,7 +46,6 @@ const TourDetails: React.FC = () => {
       setError(true);
     }
   };
-
 
   if (loading) {
     return <Loading />;
@@ -75,6 +78,41 @@ const TourDetails: React.FC = () => {
         setCurrentCoverImage(photo);
         setTourData({ ...tourData, photos: updatedPhotos });
       }
+    }
+  };
+
+  const checkoutHandler = async (totalAmount: number) => {
+    try {
+      const key  = await axios.get(BASE_URL + "/payment/getkey")
+      const keyrs = key.data.data.key
+      // console.log(keyrs)
+      const res = await axios.post(BASE_URL + "/payment/book", { totalAmount });
+      // console.log(res.data.data.order);
+      const options = {
+        keyrs, 
+        amount: res.data.data.order.amount, 
+        currency: "INR",
+        name: "TripEzz",
+        description: "Test Transaction",
+        image: "/public/logo.png",
+        order_id: res.data.data.order.id, 
+        callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+        prefill: {
+          name: "Gaurav Kumar",
+          email: "gaurav.kumar@example.com",
+          contact: "9000090000",
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#121212",
+        },
+      };
+      const razor = new window.Razorpay(options);
+        razor.open();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -179,6 +217,7 @@ const TourDetails: React.FC = () => {
                 <ShinyButton
                   text="Book Now"
                   className="w-full text-gray-900 px-4 bg-orange-100 border-2 rounded-xl p2 mt-[60px] max-sm:mt-[20px] mb-2 text-sm md:text-lg font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
+                  onClick={() => checkoutHandler(totalAmount)}
                 >
                   Book Now
                 </ShinyButton>

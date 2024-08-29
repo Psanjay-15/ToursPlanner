@@ -4,9 +4,9 @@ import cors from "cors"
 import session from "express-session"
 import userRoutes from "./routes/userRoutes.js"
 import tourRoutes from "./routes/tourRoutes.js"
+import paymentRoutes from "./routes/paymentRoutes.js"
 
 const app = express()
-
 
 app.use(
   cors({
@@ -21,6 +21,7 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 app.use("/api/v1/users",userRoutes)
-app.use("/api/v1/tours",tourRoutes)
+app.use("/api/v1/tours", tourRoutes)
+app.use("/api/v1/payment",paymentRoutes)
 
 export default app

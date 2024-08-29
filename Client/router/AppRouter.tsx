@@ -4,7 +4,7 @@ import Login from "../src/pages/Login.tsx";
 import Home from "../src/majorComponents/Home/Home.tsx";
 import TourDetails from "../src/majorComponents/SharedComponents/TourDetails.tsx";
 // import Booking from "../src/majorComponents/SharedComponents/Booking.tsx";
-import Form from "../src/majorComponents/SharedComponents/Form.tsx";
+// import Form from "../src/majorComponents/SharedComponents/Form.tsx";
 import SavedTours from "../src/majorComponents/SharedComponents/SavedTours.tsx";
 const AppRouter = () => {
   return (
@@ -14,7 +14,7 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/tour-details/:id" element={<TourDetails />} />
-        <Route path="/payment" element={<Form />} />
+        {/* <Route path="/payment" element={<Form />} /> */}
         <Route path="/saved" element={<SavedTours />} />
         {/* <Route path="/payment" element={<Booking />} /> */}
       </Routes>
