@@ -42,7 +42,9 @@ const Login = () => {
         // toast.error("Unable to login at this moment");
       });
   };
-
+  const handleSignInWithGoogle = () => {
+    window.open(BASE_URL + "/users/auth/google");
+  };
   return (
     <>
       <div className="flex flex-row h-screen max-sm:flex-col">
@@ -54,6 +56,7 @@ const Login = () => {
             <ShinyButton
               text="SIGN IN WITH GOOGLE"
               className="flex flex-row w-[50%] text-indigo-900 justify-center Montserrat border-2 rounded-full py-2 text-xs font-semibold hover:bg-indigo-100 hover:border-blue-950 max-sm:w-[70%]"
+              onClick={handleSignInWithGoogle}
             >
               <img
                 className="h-4 w-4"
@@ -101,16 +104,13 @@ const Login = () => {
               <p className="text-[15px] max-sm:text-[14px]">
                 Don't have an Account?{" "}
                 <Link to={"/register"}>
-                  <span className="text-blue-900 cursor-pointer">
-                    SIGN UP
-                  </span>
+                  <span className="text-blue-900 cursor-pointer">SIGN UP</span>
                 </Link>
               </p>
             </div>
           </div>
         </div>
-        <div className="w-2/4 flex items-center justify-center bg-[url('/media/lg.jpg')] bg-cover max-sm:hidden">
-        </div>
+        <div className="w-2/4 flex items-center justify-center bg-[url('/media/lg.jpg')] bg-cover max-sm:hidden"></div>
       </div>
     </>
   );

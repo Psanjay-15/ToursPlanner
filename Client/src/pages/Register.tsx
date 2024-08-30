@@ -40,6 +40,10 @@ const Register = () => {
       });
   };
 
+  const handleSignInWithGoogle =()=>{
+    window.open(BASE_URL + "/users/auth/google")
+  }
+
   return (
     <>
       <div className="flex flex-row h-screen max-sm:flex-col">
@@ -51,6 +55,7 @@ const Register = () => {
             <ShinyButton
               text="SIGN IN WITH GOOGLE"
               className="flex flex-row w-[50%] text-indigo-900 justify-center Montserrat border-2 rounded-full py-2 text-xs font-semibold hover:bg-indigo-100 hover:border-blue-950 max-sm:w-full"
+              onClick={handleSignInWithGoogle}
             >
               <img
                 className="h-4 w-4"

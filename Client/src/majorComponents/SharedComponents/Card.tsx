@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({
       <p className="text-gray-600 mt-2 font-semibold">{duration}</p>
       <div className="flex justify-between items-center mt-4">
         <span className="text-lg font-semibold">₹{price.toFixed(2)}/person</span>
-        <span className="text-gray-700">⭐ {ratingsAverage}</span>
+        <span className="text-gray-700">⭐ {ratingsAverage.toFixed(1)}</span>
       </div>
 
       <Link to={`/tour-details/${id}`}>

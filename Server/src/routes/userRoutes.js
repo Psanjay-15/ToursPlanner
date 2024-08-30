@@ -10,10 +10,31 @@ import {
   getUserById,
   deleteById,
   updateById,
+  signInWithGoogleSuccess
 } from "../controllers/user.controller.js";
-import { bookTour,getBookedToursByUser } from "../controllers/booking.controller.js";
+import {
+  bookTour,
+  getBookedToursByUser,
+} from "../controllers/booking.controller.js";
 import { verifyJWT, customRole } from "../middlewares/auth.middleware.js";
+import passport from "passport";
+
 const router = Router();
+
+//sign in with google
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  }),
+  (req, res) => {
+    res.send("login with google");
+  }
+);
+
+router
+  .route("/auth/google/callback")
+  .get(passport.authenticate("google"), signInWithGoogleSuccess);
 
 router.route("/register").post(createUser);
 router.route("/auth").post(loginUser);

@@ -3,12 +3,20 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [email, setEmail] = useState<string>("");
+  const [userName, setuserName] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const userEmail = localStorage.getItem("email");
     if (userEmail) {
       setEmail(userEmail);
+    }
+  }, []);
+
+  useEffect(() => {
+    const userName = localStorage.getItem("userName");
+    if (userName) {
+      setuserName(userName);
     }
   }, []);
 

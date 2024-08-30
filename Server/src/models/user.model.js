@@ -42,6 +42,9 @@ const userSchema = new mongoose.Schema(
         ref: "Tour",
       },
     ],
+    googleid: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

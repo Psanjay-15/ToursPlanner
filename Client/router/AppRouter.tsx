@@ -6,6 +6,7 @@ import TourDetails from "../src/majorComponents/SharedComponents/TourDetails.tsx
 // import Booking from "../src/majorComponents/SharedComponents/Booking.tsx";
 import SavedTours from "../src/majorComponents/SharedComponents/SavedTours.tsx";
 import MyTours from "../src/pages/MyTours.tsx";
+import Google from "../src/pages/Google.tsx";
 const AppRouter = () => {
   return (
     <>
@@ -14,8 +15,10 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/tour-details/:id" element={<TourDetails />} />
-        <Route path="/mytours" element={<MyTours/>}  />
+        <Route path="/mytours" element={<MyTours />} />
         <Route path="/saved" element={<SavedTours />} />
+        <Route path="/google/:token" element={<Google />}></Route>
+
         {/* <Route path="/payment" element={<Booking />} /> */}
       </Routes>
     </>

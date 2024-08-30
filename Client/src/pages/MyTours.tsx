@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../majorComponents/Home/NavBar";
 import { Link } from "react-router-dom";
 import ShinyButton from "../components/magicui/shiny-button";
+import StarRatings from "react-star-ratings"; 
 
 interface Tour {
   _id: string;
@@ -26,7 +27,7 @@ const MyTours: React.FC = () => {
   const [tours, setTours] = useState<Booking[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
-  const [rating, setRating] = useState<number | null>(null);
+  const [rating, setRating] = useState<number | null>(0);
   const [comment, setComment] = useState<string>('');
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -135,12 +136,6 @@ const MyTours: React.FC = () => {
                         Details
                       </ShinyButton>
                     </Link>
-                    {/* <button
-                      onClick={() => openModal(booking.tour)}
-                      className="flex justify-center lg:w-[100%] text-gray-900 bg-green-100 border-2 rounded-xl py-2 lg:px-12 px-8 text-l font-semibold hover:bg-green-200 hover:border-green-250 shadow-md"
-                    >
-                      Add Review
-                    </button> */}
                     <ShinyButton
                       text="Review"
                       className="flex justify-center lg:w-[42%] text-gray-900 bg-orange-100 border-2 rounded-xl py-2 lg:px-6 px-8 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
@@ -162,16 +157,17 @@ const MyTours: React.FC = () => {
             <h2 className="text-xl font-semibold mb-4">Add Your Review</h2>
             <div className="mb-4">
               <label htmlFor="rating" className="block font-medium mb-1">
-                Rating (1-5):
+                Rating:
               </label>
-              <input
-                type="number"
-                id="rating"
-                min="1"
-                max="5"
-                value={rating ?? ''}
-                onChange={(e) => setRating(Number(e.target.value))}
-                className="w-full border border-gray-300 rounded px-2 py-1"
+              <StarRatings
+                rating={rating || 0}
+                starRatedColor="#FFD700"
+                starHoverColor="#FFA500"
+                changeRating={setRating}
+                numberOfStars={5}
+                name="rating"
+                starDimension="30px"
+                starSpacing="5px"
               />
             </div>
             <div className="mb-4">
