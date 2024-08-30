@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ShinyButton from "../../components/magicui/shiny-button";
 import Loading from "./Loading";
 import NavBar from "../Home/NavBar";
@@ -18,8 +18,6 @@ interface TourData {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reviews: any;
 }
-
-
 
 const TourDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -83,24 +81,34 @@ const TourDetails: React.FC = () => {
 
   const checkoutHandler = async (totalAmount: number) => {
     try {
-      const key  = await axios.get(BASE_URL + "/payment/getkey")
-      const keyrs = key.data.data.key
+      const userName = localStorage.getItem("userName");
+      if (!userName) {
+        window.location.href = "/login";
+        return;
+      }
+
+      const email = localStorage.getItem("email");
+
+      // const user: User = JSON.parse(userData);
+
+      const key = await axios.get(BASE_URL + "/payment/getkey");
+      const keyrs = key.data.data.key;
       // console.log(keyrs)
       const res = await axios.post(BASE_URL + "/payment/book", { totalAmount });
       // console.log(res.data.data.order);
       const options = {
-        keyrs, 
-        amount: res.data.data.order.amount, 
+        keyrs,
+        amount: res.data.data.order.amount,
         currency: "INR",
         name: "TripEzz",
-        description: "Test Transaction",
-        image: "/public/logo.png",
-        order_id: res.data.data.order.id, 
+        description: "Explore the World",
+        image:
+          "https://static.vecteezy.com/system/resources/thumbnails/006/231/283/small/creative-initial-letter-t-air-travel-logo-design-template-eps10-vector.jpg",
+        order_id: res.data.data.order.id,
         callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
         prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000",
+          name: userName,
+          email: email,
         },
         notes: {
           address: "Razorpay Corporate Office",
@@ -110,7 +118,7 @@ const TourDetails: React.FC = () => {
         },
       };
       const razor = new window.Razorpay(options);
-        razor.open();
+      razor.open();
     } catch (error) {
       console.log(error);
     }
@@ -213,15 +221,15 @@ const TourDetails: React.FC = () => {
               </span>
             </p>
             <div className="text-center">
-              <Link to="/payment">
-                <ShinyButton
-                  text="Book Now"
-                  className="w-full text-gray-900 px-4 bg-orange-100 border-2 rounded-xl p2 mt-[60px] max-sm:mt-[20px] mb-2 text-sm md:text-lg font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
-                  onClick={() => checkoutHandler(totalAmount)}
-                >
-                  Book Now
-                </ShinyButton>
-              </Link>
+              {/* <Link to="/payment"> */}
+              <ShinyButton
+                text="Book Now"
+                className="w-full text-gray-900 px-4 bg-orange-100 border-2 rounded-xl p2 mt-[60px] max-sm:mt-[20px] mb-2 text-sm md:text-lg font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
+                onClick={() => checkoutHandler(totalAmount)}
+              >
+                Book Now
+              </ShinyButton>
+              {/* </Link> */}
               {/* <Link to="/saved">
                 <ShinyButton
                   text="Save Tour"

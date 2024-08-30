@@ -1,38 +1,14 @@
 import mongoose from 'mongoose'
 
-const bookingSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
-    tour: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"Tour"
-    },
-    status: {
-      type: String,
-      possibleValues: ["Confirmed", "Pending", "Cancelled"],
-    },
-    date: {
-      type: Date,
-      default: Date.now,
-    },
-    paymentInfo: {
-        type: String,
-    },
-    taxAmount: {
-        type: Number,
-        required: true,
-    },
-    totalAmount: {
-        type: Number,
-        required: true,
-    },
-    numberOfPeople: {
-        type: Number,
-        required:true
-    }
+const bookedTourSchema = new mongoose.Schema({
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    tour: { type: mongoose.Schema.Types.ObjectId, ref: "Tour", required: true },
+    bookingDate: { type: Date, default: Date.now },
+    status: { type: String, default: "booked" },
+  },
+    { timestamps: true }
+}
+);
 
-}, { timestamps: true })
-
-const Booking = mongoose.model("Booking",bookingSchema)
+const BookedTour = mongoose.model("BookedTour",bookedTourSchema)

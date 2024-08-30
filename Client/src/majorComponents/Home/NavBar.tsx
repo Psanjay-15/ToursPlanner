@@ -71,9 +71,9 @@ const NavBar = () => {
               >
                 Logout
               </li>
-              <Link to={"/profile"}>
+              <Link to={"/mytours"}>
                 <li className="px-2 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
-                  Profile
+                  MyTours
                 </li>
               </Link>
             </ul>
