@@ -1,14 +1,14 @@
 import express from "express";
 import { Router } from "express";
 import {
-  book,
+  payment,
   paymentVerification,
   sendKey,
 } from "../controllers/payment.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 const router = Router();
 
-router.route("/book").post(book);
+router.route("/payment").post(payment);
 router.route("/paymentverification").post(paymentVerification);
 router.route("/getkey").get(sendKey);
 

@@ -5,6 +5,7 @@ import Razorpay from "razorpay";
 
 dotenv.config({
   path: "./env",
+  // path: "./.env",
 });
 
 export const instance = new Razorpay({

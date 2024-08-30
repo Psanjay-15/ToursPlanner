@@ -22,6 +22,6 @@ app.use(cookieParser());
 
 app.use("/api/v1/users",userRoutes)
 app.use("/api/v1/tours", tourRoutes)
-app.use("/api/v1/payment",paymentRoutes)
+app.use("/api/v1/payments",paymentRoutes)
 
 export default app

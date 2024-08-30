@@ -26,7 +26,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center h-auto py-2 px-3">
+    <div className="flex flex-row justify-between items-center h-auto py-2 lg:pb-6 px-3">
       <Link to="/">
         <div>
           <p className="font-bold text-2xl md:text-3xl bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent">

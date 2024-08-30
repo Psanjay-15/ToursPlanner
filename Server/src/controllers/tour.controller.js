@@ -57,7 +57,7 @@ const getAllTour = asyncHandler(async (req, res) => {
 
 const updateTour = asyncHandler(async (req, res) => {
   const tour = await Tour.findById(req.params.id);
-  console.log(tour);
+  // console.log(tour);
   if (tour) {
     tour.title = req.body.title || tour.title;
     tour.description = req.body.description || tour.description;

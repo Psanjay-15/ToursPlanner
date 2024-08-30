@@ -39,7 +39,7 @@ const Card: React.FC<CardProps> = ({
       <Link to={`/tour-details/${id}`}>
         <div className="text-center flex justify pt-4">
           <ShinyButton
-            text="Create an Account"
+            text="Details"
             className="flex flex-row w-[40%] text-gray-900 bg-orange-100 border-2 rounded-xl py-2 px- text-l font-semibold hover:bg-orange-200 hover:border-orange-250 max-sm:text-[10px] shadow-md"
           >
             Details

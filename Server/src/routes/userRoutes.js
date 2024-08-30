@@ -11,7 +11,7 @@ import {
   deleteById,
   updateById,
 } from "../controllers/user.controller.js";
-import { getBookedToursByUser } from "../controllers/booking.controller.js";
+import { bookTour,getBookedToursByUser } from "../controllers/booking.controller.js";
 import { verifyJWT, customRole } from "../middlewares/auth.middleware.js";
 const router = Router();
 
@@ -32,5 +32,6 @@ router
   .delete(verifyJWT, customRole("admin"), deleteById)
   .put(verifyJWT, customRole("admin"), updateById);
 
-router.route("profile/:userId").get(verifyJWT, getBookedToursByUser);
+router.route("/book").post(verifyJWT, bookTour);
+router.route("/mytours").get(verifyJWT, getBookedToursByUser);
 export default router;

@@ -7,7 +7,7 @@ import NavBar from "../Home/NavBar";
 import Reviews from "./Reviews";
 
 interface TourData {
-  id: string;
+  _id: string;
   coverImageUrl: string;
   photos: string[];
   title: string;
@@ -39,6 +39,7 @@ const TourDetails: React.FC = () => {
       setTourData(res.data.data.tour);
       setCurrentCoverImage(res.data.data.tour.coverImageUrl);
       setLoading(false);
+      console.log(res.data.data.tour);
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -79,22 +80,29 @@ const TourDetails: React.FC = () => {
     }
   };
 
+  type RazorpayResponse = {
+    razorpay_payment_id: string | undefined;
+    razorpay_order_id: string | undefined;
+    razorpay_signature: string | undefined;
+  };
+
   const checkoutHandler = async (totalAmount: number) => {
     try {
       const userName = localStorage.getItem("userName");
+
       if (!userName) {
         window.location.href = "/login";
         return;
       }
-
+      console.log(tourData);
+      const token = localStorage.getItem("accessToken");
       const email = localStorage.getItem("email");
-
-      // const user: User = JSON.parse(userData);
-
-      const key = await axios.get(BASE_URL + "/payment/getkey");
+      const key = await axios.get(BASE_URL + "/payments/getkey");
       const keyrs = key.data.data.key;
       // console.log(keyrs)
-      const res = await axios.post(BASE_URL + "/payment/book", { totalAmount });
+      const res = await axios.post(BASE_URL + "/payments/payment", {
+        totalAmount,
+      });
       // console.log(res.data.data.order);
       const options = {
         keyrs,
@@ -105,7 +113,37 @@ const TourDetails: React.FC = () => {
         image:
           "https://static.vecteezy.com/system/resources/thumbnails/006/231/283/small/creative-initial-letter-t-air-travel-logo-design-template-eps10-vector.jpg",
         order_id: res.data.data.order.id,
-        callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+        // callback_url: "http://localhost:800/api/v1/payments",
+        handler: function (response: RazorpayResponse) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+            response;
+          axios
+            .post(
+              BASE_URL + "/tours/booktour",
+              {
+                tourId: tourData._id,
+                paymentInfo: razorpay_payment_id,
+                numPeople,
+                totalAmount,
+              },
+              {
+                headers: {
+                  Authorization: "Bearer " + token,
+                },
+              }
+            )
+            .then((res) => {
+              alert("Payment successfull !  ");
+              console.log(res);
+              // setTimeout(() => {
+              window.location.href = "/mytours";
+              // }, 3000);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
         prefill: {
           name: userName,
           email: email,
@@ -119,6 +157,9 @@ const TourDetails: React.FC = () => {
       };
       const razor = new window.Razorpay(options);
       razor.open();
+      razor.on("payment.failed", function () {
+        alert("Payment Failed ! Please try again later");
+      });
     } catch (error) {
       console.log(error);
     }
@@ -194,7 +235,7 @@ const TourDetails: React.FC = () => {
                 ₹{tourData.price.toFixed(2)}/person
               </span>
               <span className="text-gray-900 text-lg md:text-xl">
-                ⭐ {tourData.ratingsAverage}
+                ⭐ {tourData.ratingsAverage.toFixed(1)}
               </span>
             </div>
 
