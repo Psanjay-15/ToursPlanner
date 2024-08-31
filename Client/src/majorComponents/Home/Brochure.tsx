@@ -4,8 +4,8 @@ import ShinyButton from "../../components/magicui/shiny-button";
 const Brochure = () => {
   return (
     <>
-      <div className="flex flex-row max-sm:flex-col-reverse  mx-8 max-sm:mx-8 py-4 max-sm:py-1 border-2 rounded-xl shadow-md">
-        <div className="w-full md:w-[50%] h-[200px] md:h-[380px] p-2 bg-[url('/media/bro.png')] bg-cover rounded-xl md:rounded-none "></div>
+      <div className="flex flex-row max-sm:flex-col-reverse  mx-8 max-sm:mx-8 lg:py-0  max-sm:py-1 border-2 rounded-xl shadow-md">
+        <div className="w-full md:w-[50%] h-[150px] lg:h-[380px] p-2 bg-[url('/media/bro.png')] bg-cover rounded-xl md:rounded-none "></div>
         <div className="w-full md:w-[50%] flex flex-col justify-center items-center p-4 md:p-6 mt-4 md:mt-0">
           <p className="text-center font-extrabold text-xl md:text-4xl mb-4">
             To get more information about the tour, please click the button

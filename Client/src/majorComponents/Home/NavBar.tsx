@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const [email, setEmail] = useState<string>("");
   const [userName, setuserName] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userEmail = localStorage.getItem("email");
@@ -22,35 +24,46 @@ const NavBar = () => {
 
   const handleSignout = () => {
     localStorage.clear();
-    window.location.href = "/";
+    toast.success("Successfully Logout", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    navigate("/");
   };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const getEmailInitial = (email: string) => {
-    return email.charAt(0).toUpperCase();
-  };
+  // const getEmailInitial = (email: string) => {
+  //   return email.charAt(0).toUpperCase();
+  // };
 
   return (
-    <div className="flex flex-row justify-between items-center h-auto py-2 lg:pb-6 px-3">
+    <div className="flex flex-row justify-between items-center h-auto py-2 lg:pb-6 px-3 relative">
       <Link to="/">
-        <div>
-          <p className="font-bold text-2xl md:text-3xl bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent">
-            <span className="md:hidden">TE</span>
-            <span className="hidden md:inline">TripEzz.</span>
-          </p>
-        </div>
+        <p className="font-bold text-2xl md:text-3xl bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent">
+          <span className="md:hidden">TE</span>
+          <span className="hidden md:inline">TripEzz.</span>
+        </p>
       </Link>
-      <div>
+      <div className="relative">
         {email ? (
           <div
-            className="text-[18px] border-2 border-gray-400 px-[15px] py-[4px] rounded-lg font-bold bg-gradient-to-tr from-red-700 to-orange-200 bg-clip-text text-transparent mr-4 cursor-pointer  "
+            className="flex items-center text-[18px] py-[4px] rounded-full lg:rounded-lg font-bold lg:mx-[26px] max-sm:mr-[0px] cursor-pointer"
             onClick={toggleMenu}
           >
-            <span className="md:hidden">{getEmailInitial(email)}</span>
-            <span className="hidden md:inline">{email}</span>
+            <img
+              src={"/media/profile.png"}
+              className="w-10 h-10 max-sm:w-[35px] max-sm:h-[35px]"
+              alt=""
+            />
           </div>
         ) : (
           <div className="flex items-center">
@@ -71,19 +84,24 @@ const NavBar = () => {
         )}
 
         {menuOpen && (
-          <div className="absolute mt-2 w-[120px] bg-white border border-gray-300 rounded shadow-md">
+          <div className="absolute max-sm:z-10 top-12 right-0 w-[100px] bg-white border border-gray-300 rounded shadow-md mx-w-full overflow-hiddn">
             <ul className="py-2">
+              <Link to={"/mytours"}>
+                <li className="pl-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
+                  My Tours
+                </li>
+              </Link>
+              <Link to={"/update"}>
+                <li className="pl-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
+                  Update
+                </li>
+              </Link>
               <li
-                className="px-2 py-2 font-semibold hover:bg-gray-100 cursor-pointer"
+                className="pl-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer"
                 onClick={handleSignout}
               >
                 Logout
               </li>
-              <Link to={"/mytours"}>
-                <li className="px-2 py-2 font-semibold hover:bg-gray-100 cursor-pointer">
-                  MyTours
-                </li>
-              </Link>
             </ul>
           </div>
         )}

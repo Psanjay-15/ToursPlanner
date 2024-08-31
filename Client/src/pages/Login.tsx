@@ -1,19 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShinyButton from "../components/magicui/shiny-button";
 import { useState } from "react";
 import axios from "axios";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const navigate = useNavigate();
   const handleLogin = (): void => {
     if (!userName || !email || !password) {
-      alert("All the fields are required");
-      // toast.error("All the fields are required");
+      // alert("All the fields are required");
+      toast.error("All the fields are required", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
 
@@ -33,13 +43,33 @@ const Login = () => {
         localStorage.setItem("userName", res.data.data.user.userName);
         localStorage.setItem("accessToken", res.data.data.accessToken);
         localStorage.setItem("email", res.data.data.user.email);
-        window.location.href = "/";
         console.log(res.data);
         // toast.success("Login successfully");
+        toast.success("Logged successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        navigate('/');
+        // window.location.href = "/";
       })
       .catch((error) => {
         console.log(error);
-        // toast.error("Unable to login at this moment");
+        toast.error("Please provide correct login details", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
   const handleSignInWithGoogle = () => {

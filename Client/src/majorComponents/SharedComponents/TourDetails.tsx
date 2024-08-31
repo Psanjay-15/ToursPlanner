@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ShinyButton from "../../components/magicui/shiny-button";
 import Loading from "./Loading";
 import NavBar from "../Home/NavBar";
 import Reviews from "./Reviews";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface TourData {
   _id: string;
@@ -27,6 +29,7 @@ const TourDetails: React.FC = () => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<boolean>(false);
   const [numPeople, setNumPeople] = React.useState<number>(1);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     fetchTourData();
@@ -134,14 +137,32 @@ const TourDetails: React.FC = () => {
               }
             )
             .then((res) => {
-              alert("Payment successfull !  ");
-              console.log(res);
-              // setTimeout(() => {
-              window.location.href = "/mytours";
-              // }, 3000);
+              // alert("Payment successfull !  ");
+              toast.success("Payment successfull ! ", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+              // console.log(res);
+              navigate("/mytours");
             })
             .catch((err) => {
               console.log(err);
+              toast.error("Error occured while booking", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
             });
         },
         prefill: {
@@ -158,7 +179,17 @@ const TourDetails: React.FC = () => {
       const razor = new window.Razorpay(options);
       razor.open();
       razor.on("payment.failed", function () {
-        alert("Payment Failed ! Please try again later");
+        // alert("Payment Failed ! Please try again later");
+        toast.error("Payment Failed ! Please try again later", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
     } catch (error) {
       console.log(error);

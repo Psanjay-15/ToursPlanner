@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../majorComponents/Home/NavBar";
 import { Link } from "react-router-dom";
 import ShinyButton from "../components/magicui/shiny-button";
-import StarRatings from "react-star-ratings"; 
+import StarRatings from "react-star-ratings";
+import { toast } from "react-toastify";
 
 interface Tour {
   _id: string;
@@ -28,7 +29,7 @@ const MyTours: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [rating, setRating] = useState<number | null>(0);
-  const [comment, setComment] = useState<string>('');
+  const [comment, setComment] = useState<string>("");
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
   const fetchTours = async () => {
@@ -50,7 +51,7 @@ const MyTours: React.FC = () => {
 
   useEffect(() => {
     fetchTours();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const openModal = (tour: Tour) => {
@@ -61,11 +62,11 @@ const MyTours: React.FC = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setRating(null);
-    setComment('');
+    setComment("");
   };
 
   const handleSubmitReview = async () => {
-    if (selectedTour && rating !== null && comment.trim() !== '') {
+    if (selectedTour && rating !== null && comment.trim() !== "") {
       try {
         const token = localStorage.getItem("accessToken");
         const res = await axios.post(
@@ -75,13 +76,23 @@ const MyTours: React.FC = () => {
             headers: { Authorization: "Bearer " + token },
           }
         );
-        console.log('Review submitted successfully:', res.data);
+        console.log("Review submitted successfully:", res.data);
+        toast.success("Review submitted successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         closeModal();
       } catch (error) {
         console.error("Error submitting review:", error);
       }
     } else {
-      alert('Please provide both a rating and a comment.');
+      alert("Please provide both a rating and a comment.");
     }
   };
 
@@ -120,7 +131,7 @@ const MyTours: React.FC = () => {
                   </p>
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-sm text-600">
-                      ⭐️{" "}{booking.tour.ratingsAverage.toFixed(1)}
+                      ⭐️ {booking.tour.ratingsAverage.toFixed(1)}
                     </span>
                     <span className="text-xl font-semibold text-gray-900">
                       Price: ₹{booking.tour.price}
@@ -140,9 +151,9 @@ const MyTours: React.FC = () => {
                       text="Review"
                       className="flex justify-center lg:w-[42%] text-gray-900 bg-orange-100 border-2 rounded-xl py-2 lg:px-6 px-8 text-l font-semibold hover:bg-orange-200 hover:border-orange-250 shadow-md"
                       onClick={() => openModal(booking.tour)}
-                      >
-                        Review
-                      </ShinyButton>
+                    >
+                      Review
+                    </ShinyButton>
                   </div>
                 </div>
               </div>

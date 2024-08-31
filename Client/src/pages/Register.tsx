@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import ShinyButton from "../components/magicui/shiny-button";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [fullName, setFullName] = useState<string>("");
@@ -36,13 +38,23 @@ const Register = () => {
       })
       .catch((error) => {
         console.log(error.message);
-        alert("Unable to register");
+        // alert("Unable to register");
+        toast.error("Please provide correct login details", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   };
 
-  const handleSignInWithGoogle =()=>{
-    window.open(BASE_URL + "/users/auth/google")
-  }
+  const handleSignInWithGoogle = () => {
+    window.open(BASE_URL + "/users/auth/google");
+  };
 
   return (
     <>
