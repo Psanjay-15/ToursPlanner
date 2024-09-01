@@ -119,7 +119,7 @@ const TourDetails: React.FC = () => {
         // callback_url: "http://localhost:800/api/v1/payments",
         handler: function (response: RazorpayResponse) {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+          const { razorpay_payment_id } =
             response;
           axios
             .post(
@@ -136,7 +136,7 @@ const TourDetails: React.FC = () => {
                 },
               }
             )
-            .then((res) => {
+            .then(() => {
               // alert("Payment successfull !  ");
               toast.success("Payment successfull ! ", {
                 position: "top-right",

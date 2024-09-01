@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 
 const NavBar = () => {
   const [email, setEmail] = useState<string>("");
-  const [userName, setuserName] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [, setuserName] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
