@@ -1,7 +1,7 @@
 "use client";
-import google from "../../media/google.png"
+// import google from "../../media/google.png"
 import { motion, type AnimationProps } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils.ts";
 
 const animationProps = {
   initial: { "--x": "100%", scale: 0.8 },
