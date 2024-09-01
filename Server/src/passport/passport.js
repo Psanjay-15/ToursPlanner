@@ -39,9 +39,9 @@ passport.use(
           next(null, user);
 
         } else {
-          // console.log(profile.displayName)
+          console.log(profile)
           User.create({
-            fullname: profile.displayName,
+            fullName: profile._json.name,
             googleId: profile.id,
             email: profile._json.email,
             password: "google_verified",

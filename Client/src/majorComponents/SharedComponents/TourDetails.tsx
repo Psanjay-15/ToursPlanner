@@ -92,13 +92,13 @@ const TourDetails: React.FC = () => {
   const checkoutHandler = async (totalAmount: number) => {
     try {
       const userName = localStorage.getItem("userName");
+      const token = localStorage.getItem("accessToken");
 
-      if (!userName) {
+      if (!token) {
         window.location.href = "/login";
         return;
       }
       console.log(tourData);
-      const token = localStorage.getItem("accessToken");
       const email = localStorage.getItem("email");
       const key = await axios.get(BASE_URL + "/payments/getkey");
       const keyrs = key.data.data.key;
@@ -148,7 +148,9 @@ const TourDetails: React.FC = () => {
                 progress: undefined,
                 theme: "colored",
               });
-              // console.log(res);
+              // // console.log(res);
+              // window.location.href = "/mytours";
+              // <Navigate to="/mytours"  />;
               navigate("/mytours");
             })
             .catch((err) => {
