@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const NavBar = () => {
   const [email, setEmail] = useState<string>("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [, setuserName] = useState<string>("");
+  // const [, setuserName] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -16,12 +16,12 @@ const NavBar = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const userName = localStorage.getItem("userName");
-    if (userName) {
-      setuserName(userName);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const userName = localStorage.getItem("userName");
+  //   if (userName) {
+  //     setuserName(userName);
+  //   }
+  // }, []);
 
   const handleSignout = () => {
     localStorage.clear();

@@ -92,6 +92,7 @@ const TourDetails: React.FC = () => {
   const checkoutHandler = async (totalAmount: number) => {
     try {
       const userName = localStorage.getItem("userName");
+      const fullName = localStorage.getItem("fullName");
       const token = localStorage.getItem("accessToken");
 
       if (!token) {
@@ -168,7 +169,7 @@ const TourDetails: React.FC = () => {
             });
         },
         prefill: {
-          name: userName,
+          name: userName || fullName,
           email: email,
         },
         notes: {

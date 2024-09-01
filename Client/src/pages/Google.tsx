@@ -20,7 +20,7 @@ const Google: React.FC = () => {
           console.log(res.data.data.fullName);
           localStorage.setItem("email", res.data.data.email);
           localStorage.setItem("fullName", res.data.data.fullName);
-          localStorage.setItem("userName", res.data.data.fullName);
+          // localStorage.setItem("userName", res.data.data.fullName);
         })
         .catch((err) => {
           console.log(err);

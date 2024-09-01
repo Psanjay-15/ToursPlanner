@@ -33,12 +33,12 @@ const MyTours: React.FC = () => {
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
   const fetchTours = async () => {
-    const user = localStorage.getItem("userName");
-    if (!user) {
+    // const user = localStorage.getItem("userName");
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
       window.location.href = "/login";
       return;
     }
-    const token = localStorage.getItem("accessToken");
     try {
       const res = await axios.get(BASE_URL + "/tours/mytours", {
         headers: { Authorization: "Bearer " + token },
@@ -69,6 +69,7 @@ const MyTours: React.FC = () => {
     if (selectedTour && rating !== null && comment.trim() !== "") {
       try {
         const token = localStorage.getItem("accessToken");
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const res = await axios.post(
           `${BASE_URL}/tours/tour-details/${selectedTour._id}`,
           { rating, comment },
@@ -76,7 +77,7 @@ const MyTours: React.FC = () => {
             headers: { Authorization: "Bearer " + token },
           }
         );
-        console.log("Review submitted successfully:", res.data);
+        // console.log("Review submitted successfully:", res.data);
         toast.success("Review submitted successfully", {
           position: "top-right",
           autoClose: 5000,

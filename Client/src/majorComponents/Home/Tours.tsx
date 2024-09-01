@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../SharedComponents/Card";
@@ -29,8 +30,6 @@ const Tours: React.FC = () => {
     try {
       const response = await axios.get(BASE_URL + "/tours/alltours");
       setTours(response.data.data.tours);
-      // console.log(response.data.data.tours);
-
       setLoading(false);
     } catch (err) {
       setError("Failed to load tours.");
@@ -73,7 +72,6 @@ const Tours: React.FC = () => {
   }
 
   return (
- 
     <>
       <div className="p-8 mt-[0px] md:pt-2">
         <SearchBar
@@ -97,7 +95,6 @@ const Tours: React.FC = () => {
             />
           ))}
         </div>
-        
       </div>
     </>
   );

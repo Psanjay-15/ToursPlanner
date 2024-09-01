@@ -3,7 +3,6 @@ import Register from "../src/pages/Register.tsx";
 import Login from "../src/pages/Login.tsx";
 import Home from "../src/majorComponents/Home/Home.tsx";
 import TourDetails from "../src/majorComponents/SharedComponents/TourDetails.tsx";
-import SavedTours from "../src/majorComponents/SharedComponents/SavedTours.tsx";
 import MyTours from "../src/pages/MyTours.tsx";
 import Google from "../src/pages/Google.tsx";
 import Update from "../src/pages/Update.tsx";
@@ -53,7 +52,6 @@ const AppRouter = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/tour-details/:id" element={<TourDetails />} />
         <Route path="/mytours" element={<MyTours />} />
-        <Route path="/saved" element={<SavedTours />} />
         <Route
           path="/update"
           element={
