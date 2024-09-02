@@ -18,20 +18,14 @@ dotenv.config({
 
 const app = express();
 
-// app.use(
-//   cors({
-//     origin: process.env.CORS_ORIGIN,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     credentials: true,
-//   })
-// );
-const corsOptions = {
+app.use(
+  cors({
     origin: process.env.CORS_ORIGIN,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-    credentials: true 
-};
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
+);
 
-app.use(cors(corsOptions));
 
 app.use(session({resave:false,saveUninitialized:true,secret:"secret"}))
 app.use(express.json({ limit: "16kb" }));
