@@ -20,7 +20,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://tripezz.vercel.app/",
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
