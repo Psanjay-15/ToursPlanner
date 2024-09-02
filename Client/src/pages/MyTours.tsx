@@ -70,7 +70,7 @@ const MyTours: React.FC = () => {
       try {
         const token = localStorage.getItem("accessToken");
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const res = await axios.post(
+        await axios.post(
           `${BASE_URL}/tours/tour-details/${selectedTour._id}`,
           { rating, comment },
           {
