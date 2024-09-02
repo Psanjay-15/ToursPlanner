@@ -45,12 +45,13 @@ const addTour = asyncHandler(async (req, res) => {
 });
 
 const getAllTour = asyncHandler(async (req, res) => {
-  const tours = await Tour.find({});
-  // if (tours) {
-    
-  // } else {
-  //   throw new ApiError(500, "Something error occurred while fetching tours");
-  // }
+  const tours = await Tour.find();
+  console.log(tours)
+  if (!tours) {
+     res
+      .status(200)
+      .json(new ApiResponse(200, { tours }, "All tours fetched successfully"));
+  }
   return res
       .status(200)
       .json(new ApiResponse(200, { tours }, "All tours fetched successfully"));
