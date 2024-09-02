@@ -2,19 +2,11 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import session from "express-session";
+import passport from "passport";
+import "./passport/passport.js";
 import userRoutes from "./routes/userRoutes.js";
 import tourRoutes from "./routes/tourRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
-import passport from "passport";
-import "./passport/passport.js";
-import dotenv from "dotenv";
-
-
-// import { use, initialize } from "passport";
-dotenv.config({
-  path: "./env",
-  // path: "./.env",
-});
 
 const app = express();
 
