@@ -20,12 +20,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "https://tripezz.vercel.app/",
     credentials: true,
   })
 );
-
-console.log(process.env.CORS_ORIGIN)
 
 app.use(session({resave:false,saveUninitialized:true,secret:"secret"}))
 app.use(express.json({ limit: "16kb" }));
