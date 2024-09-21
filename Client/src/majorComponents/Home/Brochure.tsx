@@ -12,7 +12,7 @@ const Brochure = () => {
             below and download the brochure.
           </p>
           <Link
-            to="https://drive.google.com/file/d/1CxJafG6HF8D8AP--0yJrnLmuZKHojzCn/view"
+            to="https://drive.google.com/file/d/1YQnUbk9gmvkgmCjmqn1Q5xVsbjMwebK9/view"
             target="_blank"
             className="w-full flex justify-center"
           >
